@@ -9,7 +9,7 @@ function App() {
         <h1 type="Big">Ravenous</h1>
         <img src={sushi} alt="sushiman" height='300' width='250'/>
         <p>
-          Feed your dreams.
+          Feed yourself. Feed your dreams. 
         </p>
         <span>
         <a>An app by </a>
