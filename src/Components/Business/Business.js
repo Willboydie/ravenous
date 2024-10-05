@@ -1,8 +1,7 @@
 import styles from './Business.module.css'
 
 
-function BusinessElement({ imgSrc, name, address, 
-  city, state, zipCode, rating, reviewCount }) {
+function BusinessElement({ address, imgSrc, name, rating, reviewCount }) {
   return (
     <div className={styles.BusinessElement}>
       <div className={styles.imageContainer}>
@@ -11,9 +10,8 @@ function BusinessElement({ imgSrc, name, address,
       <h2>{name}</h2>
       <div className={styles.BusinessInfomation}>
         <div className={styles.BusinessAddress}>
-          <p>{address}</p>
-          <p>{city}</p>
-          <p>{`${state} ${zipCode}`}</p>
+          <p>{address[0]}</p>
+          <p>{address[1]}</p>
         </div>
         <div className={styles.BusinessReviews}>
           <h3>{`${rating} stars`}</h3>

@@ -34,7 +34,8 @@ function SearchBar(props) {
     
     return (
         <form onSubmit={handleSubmit} 
-        className={styles.SearchBar}>
+        className={styles.SearchBar}
+        id='searchBar'>
             <input type="search" 
             placeholder="What do you fancy..." 
             onChange={handleSearchTermChange} 

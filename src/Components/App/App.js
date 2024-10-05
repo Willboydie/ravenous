@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import styles from './App.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import BusinessList from '../BusinessList/BusinessList'
-import RestaurantData from './RestaurantData';
+import getYelpRestaurants from '../../utils/yelpApi';
+import sushiMan from './happy-man-eating-sushi.webp';
 
 
 function App() {
@@ -11,15 +12,36 @@ function App() {
   const [searchLocation, setSearchLocation] = useState('');
   const [sortTerm, setSortTerm] = useState('best_match');
 
+  const searchObj = {
+    term: searchTerm,
+    location: searchLocation,
+    sortby: sortTerm
+  }
+
   function updateSearchObj(newSearchObj) {
     setSearchTerm(newSearchObj.term);
     setSearchLocation(newSearchObj.location);
     setSortTerm(newSearchObj.sortby);
-
   };
 
+  const [restaurants, setRestaurants] = useState([]);
+
+
   useEffect(() => {
-    console.log(`term: ${searchTerm}, loc: ${searchLocation}, sortby: ${sortTerm}`);
+
+    if (searchTerm && searchLocation) {
+
+      const getRestaurantsResponse = async(searchObj) => {
+        const restaurantsResponse = await getYelpRestaurants(searchObj);
+        if (restaurantsResponse) {
+          setRestaurants(restaurantsResponse);
+        } else {
+          console.log('Could not find matching restaurants.')
+        }
+      }
+      getRestaurantsResponse(searchObj);
+    }
+
   }, [searchTerm, searchLocation, sortTerm])
 
 
@@ -40,7 +62,7 @@ function App() {
       </h1>
       <SearchBar updateSearchObj={updateSearchObj}/>
       <main>
-        <BusinessList businesses={RestaurantData} />
+        <BusinessList businesses={restaurants} />
       </main>   
     </div>
   );
